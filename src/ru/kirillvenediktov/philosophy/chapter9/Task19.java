@@ -13,6 +13,9 @@ interface FortuneFactory {
 
 class CoinGame implements FortuneGame {
 
+    private CoinGame() {
+    }
+
     @Override
     public void makeThrow() {
         int probabilityPercent = random.nextInt(99);
@@ -25,9 +28,20 @@ class CoinGame implements FortuneGame {
         }
     }
 
+    public static FortuneFactory fortuneFactory = new FortuneFactory() {
+
+        @Override
+        public FortuneGame getFortuneGame() {
+            return new CoinGame();
+        }
+    };
+
 }
 
 class DiceGame implements FortuneGame {
+
+    private DiceGame() {
+    }
 
     @Override
     public void makeThrow() {
@@ -36,22 +50,15 @@ class DiceGame implements FortuneGame {
         System.out.println(throwingResult);
 
     }
-}
 
-class CoinFactory implements FortuneFactory {
+    public static FortuneFactory fortuneFactory = new FortuneFactory() {
 
-    @Override
-    public FortuneGame getFortuneGame() {
-        return new CoinGame();
-    }
-}
+        @Override
+        public FortuneGame getFortuneGame() {
+            return new DiceGame();
+        }
+    };
 
-class DiceFactory implements FortuneFactory {
-
-    @Override
-    public FortuneGame getFortuneGame() {
-        return new DiceGame();
-    }
 }
 
 public class Task19 {
@@ -66,9 +73,9 @@ public class Task19 {
     public static void main(String[] args) {
         Task19 task19 = new Task19();
         System.out.println("Dice");
-        task19.playGame(new DiceFactory(), 20);
+        task19.playGame(DiceGame.fortuneFactory, 20);
         System.out.println("Coin");
-        task19.playGame(new CoinFactory(), 20);
+        task19.playGame(CoinGame.fortuneFactory, 20);
     }
 
 }

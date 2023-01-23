@@ -12,50 +12,59 @@ interface CycleFactory {
 
 class Unicycle implements Cycle {
 
+    private Unicycle() {
+    }
+
     @Override
     public void ride() {
         System.out.println("Unicycle rides");
     }
+
+    public static CycleFactory cycleFactory = new CycleFactory() {
+
+        @Override
+        public Cycle getCycle() {
+            return new Unicycle();
+        }
+    };
 }
 
 class Bicycle implements Cycle {
+
+    private Bicycle() {
+    }
 
     @Override
     public void ride() {
         System.out.println("Bicycle rides");
     }
+
+    public static CycleFactory cycleFactory = new CycleFactory() {
+
+        @Override
+        public Cycle getCycle() {
+            return new Bicycle();
+        }
+    };
 }
 
 class Tricycle implements Cycle {
+
+    private Tricycle() {
+    }
 
     @Override
     public void ride() {
         System.out.println("Tricycle rides");
     }
-}
 
-class UnicycleFactory implements CycleFactory {
+    public static CycleFactory cycleFactory = new CycleFactory() {
 
-    @Override
-    public Cycle getCycle() {
-        return new Unicycle();
-    }
-}
-
-class BicycleFactory implements CycleFactory {
-
-    @Override
-    public Cycle getCycle() {
-        return new Bicycle();
-    }
-}
-
-class TricycleFactory implements CycleFactory {
-
-    @Override
-    public Cycle getCycle() {
-        return new Tricycle();
-    }
+        @Override
+        public Cycle getCycle() {
+            return new Tricycle();
+        }
+    };
 }
 
 class Biking {
@@ -67,9 +76,9 @@ class Biking {
 
     public static void main(String[] args) {
         Biking biking = new Biking();
-        biking.goBiking(new UnicycleFactory());
-        biking.goBiking(new BicycleFactory());
-        biking.goBiking(new TricycleFactory());
+        biking.goBiking(Unicycle.cycleFactory);
+        biking.goBiking(Bicycle.cycleFactory);
+        biking.goBiking(Tricycle.cycleFactory);
     }
 }
 
