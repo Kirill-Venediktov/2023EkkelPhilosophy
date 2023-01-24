@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Gerbil {
+
     private int gerbilNumber;
 
     public Gerbil(int gerbilNumber) {

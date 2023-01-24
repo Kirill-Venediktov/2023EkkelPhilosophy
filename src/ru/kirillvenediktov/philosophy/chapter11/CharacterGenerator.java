@@ -6,13 +6,12 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
-import java.util.List;
-import java.util.Set;
 import java.util.TreeSet;
 
 public class CharacterGenerator {
 
     private int count = 0;
+
     private static OfficeCharacter[] characters = OfficeCharacter.values();
 
     public OfficeCharacter next() {
