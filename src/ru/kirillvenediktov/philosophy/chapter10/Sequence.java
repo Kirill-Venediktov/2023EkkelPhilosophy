@@ -1,5 +1,8 @@
 package ru.kirillvenediktov.philosophy.chapter10;
 
+import java.util.ArrayList;
+import java.util.List;
+
 interface Selector {
 
     boolean end();
@@ -11,18 +14,16 @@ interface Selector {
 
 public class Sequence {
 
-    private Object[] items;
+    private List items;
 
     private int next = 0;
 
-    public Sequence(int size) {
-        items = new Object[size];
+    public Sequence() {
+        items = new ArrayList();
     }
 
     public void add(Object x) {
-        if (next < items.length) {
-            items[next++] = x;
-        }
+        items.add(x);
     }
 
     private class SequenceSelector implements Selector {
@@ -31,17 +32,17 @@ public class Sequence {
 
         @Override
         public boolean end() {
-            return i == items.length;
+            return i == items.size();
         }
 
         @Override
         public Object current() {
-            return items[i];
+            return items.get(i);
         }
 
         @Override
         public void next() {
-            if (i < items.length) {
+            if (i < items.size()) {
                 i++;
             }
         }
@@ -53,7 +54,7 @@ public class Sequence {
 
     private class ReverseSelector implements Selector {
 
-        private int i = items.length - 1;
+        private int i = items.size() - 1;
 
         @Override
         public boolean end() {
@@ -62,7 +63,7 @@ public class Sequence {
 
         @Override
         public Object current() {
-            return items[i];
+            return items.get(i);
         }
 
         @Override
@@ -86,7 +87,7 @@ public class Sequence {
     }
 
     public static void main(String[] args) {
-        Sequence sequence = new Sequence(10);
+        Sequence sequence = new Sequence();
         for (int i = 0; i < 10; i++) {
             sequence.add(Integer.toString(i));
         }
@@ -121,7 +122,7 @@ class Task2 {
     }
 
     public static void main(String[] args) {
-        Sequence sequence = new Sequence(10);
+        Sequence sequence = new Sequence();
         for (int i = 0; i < 10; i++) {
             sequence.add(new Task2(i));
         }
