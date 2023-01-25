@@ -36,6 +36,13 @@ public class CharacterGenerator {
         }
         return characters;
     }
+
+    public Collection<String> fillCollectionOfStrings(Collection<String> strings, int limit) {
+        for (int i = 0; i < limit; i++) {
+            strings.add(next().toString());
+        }
+        return strings;
+    }
 }
 
 class Task4 {

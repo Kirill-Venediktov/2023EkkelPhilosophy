@@ -1,5 +1,9 @@
 package ru.kirillvenediktov.philosophy.chapter10.greenhouse;
 
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+
 public class GreenhouseControls extends Controller {
 
     private boolean light = false;
@@ -165,13 +169,14 @@ public class GreenhouseControls extends Controller {
 
     public class Restart extends Event {
 
-        private Event[] eventList;
+        private List<Event> eventList;
 
-        public Restart(long delayTime, Event[] eventList) {
+        public Restart(long delayTime, List<Event> eventList) {
             super(delayTime);
             this.eventList = eventList;
-            for (Event event : eventList) {
-                addEvent(event);
+            Iterator<Event> iterator = eventList.iterator();
+            while (iterator.hasNext()) {
+                addEvent(iterator.next());
             }
         }
 

@@ -1,5 +1,8 @@
 package ru.kirillvenediktov.philosophy.chapter8;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Random;
 
 public interface Rodent {
@@ -237,11 +240,13 @@ class Forrest {
     private static RandomRodentGenerator generator = new RandomRodentGenerator();
 
     public static void main(String[] args) {
-        Rodent[] rodents = new Rodent[10];
-        for (int i = 0; i < rodents.length; i++) {
-            rodents[i] = generator.next();
+        List<Rodent> rodents = new ArrayList<>();
+        for (int i = 0; i < 10; i++) {
+            rodents.add(generator.next());
         }
-        for (Rodent rodent : rodents) {
+        Iterator<Rodent> iterator = rodents.iterator();
+        while (iterator.hasNext()) {
+            Rodent rodent = iterator.next();
             rodent.gnaw();
             rodent.rustle();
             rodent.squeak();
