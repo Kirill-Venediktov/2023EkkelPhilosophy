@@ -1,7 +1,7 @@
 package ru.kirillvenediktov.philosophy.chapter8.shapes;
 
 public class ShapeSimulator {
-    private static RandomShapeGenerator generator = new RandomShapeGenerator();
+    private static RandomShapeGenerator generator = new RandomShapeGenerator(5);
 
     public static void main(String[] args) {
         Shape[] shapes = new Shape[9];

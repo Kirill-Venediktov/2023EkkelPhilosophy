@@ -11,8 +11,8 @@ public class Task22 {
     private Set<WordStatisticCarrier> carriers = new HashSet<>();
 
     public Set<WordStatisticCarrier> countNumberOfWordEntries(List<String> stringList) {
-        boolean isExist = false;
         for (String word : stringList) {
+            boolean isExist = false;
             for (WordStatisticCarrier carrier : carriers) {
                 if (carrier.getWord().equals(word)) {
                     int i = carrier.getCount();

@@ -28,10 +28,6 @@ public class Task21 {
         Map<String, Integer> w = task21.countNumberOfWordEntries(
                 new TextFile("C:\\ideaWorkspace\\2023EkkelPhilosophy\\test.txt", "\\W+"));
         System.out.println(w);
-//
-//        Set<String> words = new TreeSet<>(
-//                new TextFile("C:\\ideaWorkspace\\2023EkkelPhilosophy\\test.txt", "\\W+"));
-//        System.out.println(words);
     }
 
 }
