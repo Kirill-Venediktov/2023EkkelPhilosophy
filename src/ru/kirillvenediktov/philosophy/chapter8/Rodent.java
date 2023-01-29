@@ -25,6 +25,10 @@ class Characteristic {
         this.s = s;
         System.out.println("Создаем Characteristic " + s);
     }
+
+    protected void dispose(){
+        System.out.println("Завершаем Characteristic " + s);
+    }
 }
 
 class Description {
@@ -33,6 +37,10 @@ class Description {
     public Description(String s) {
         this.s = s;
         System.out.println("Создаем Description " + s);
+    }
+
+    protected void dispose(){
+        System.out.println("Завершаем Description " + s);
     }
 }
 

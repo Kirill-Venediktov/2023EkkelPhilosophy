@@ -1,5 +1,7 @@
 package ru.kirillvenediktov.philosophy.chapter10;
 
+import ru.kirillvenediktov.philosophy.exceptions.ListOverflowException;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -7,6 +9,7 @@ import java.util.ListIterator;
 
 public class Sequence {
 
+    private static final int LIST_LIMIT = 20;
     private List items;
 
     public Sequence() {
@@ -14,6 +17,9 @@ public class Sequence {
     }
 
     public void add(Object x) {
+        if (items.size() > LIST_LIMIT) {
+            throw new ListOverflowException();
+        }
         items.add(x);
     }
 
@@ -59,7 +65,7 @@ class Task2 {
 
     public static void main(String[] args) {
         Sequence sequence = new Sequence();
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 22; i++) {
             sequence.add(new Task2(i));
         }
         Iterator iterator = sequence.iterator();
