@@ -1,15 +1,10 @@
 package ru.kirillvenediktov.philosophy.chapter12;
 
-import ru.kirillvenediktov.philosophy.chapter12.chapter12Exceptions.MyException;
+import ru.kirillvenediktov.philosophy.chapter12.chapter12Exceptions.MyException4;
 
 public class Task4 {
 
     public static void main(String[] args) {
-        try{
-            throw new MyException("Text");
-        } catch (MyException e) {
-            System.out.println("Catch block. Exception: " + e);
-            e.showMessage();
-        }
+        throw new MyException4();
     }
 }
