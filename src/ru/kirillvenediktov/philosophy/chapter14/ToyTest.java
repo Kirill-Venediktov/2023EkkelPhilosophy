@@ -8,21 +8,25 @@ interface Waterproof {
 
 }
 
+interface Expensive {
+
+}
+
 interface Shoots {
 
 }
 
 class Toy {
 
-    public Toy() {
-    }
+//    public Toy() {
+//    }
 
     public Toy(int i) {
 
     }
 }
 
-class FancyToy extends Toy implements HasBatteries, Waterproof, Shoots {
+class FancyToy extends Toy implements HasBatteries, Waterproof, Shoots, Expensive {
 
     public FancyToy(int i) {
         super(i);
