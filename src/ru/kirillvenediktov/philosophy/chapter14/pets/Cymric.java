@@ -8,4 +8,13 @@ public class Cymric extends Manx {
 
     public Cymric() {
     }
+
+    public static class Factory
+            implements ru.kirillvenediktov.philosophy.chapter14.factory.Factory<Cymric> {
+
+        @Override
+        public Cymric create() {
+            return new Cymric();
+        }
+    }
 }

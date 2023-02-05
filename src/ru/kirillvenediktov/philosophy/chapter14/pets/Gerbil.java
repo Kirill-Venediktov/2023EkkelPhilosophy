@@ -8,4 +8,13 @@ public class Gerbil extends Rodent {
 
     public Gerbil() {
     }
+
+    public static class Factory
+            implements ru.kirillvenediktov.philosophy.chapter14.factory.Factory<Gerbil> {
+
+        @Override
+        public Gerbil create() {
+            return new Gerbil();
+        }
+    }
 }

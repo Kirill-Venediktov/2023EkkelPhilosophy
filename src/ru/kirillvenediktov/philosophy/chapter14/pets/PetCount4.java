@@ -1,7 +1,5 @@
-package ru.kirillvenediktov.philosophy.chapter14;
+package ru.kirillvenediktov.philosophy.chapter14.pets;
 
-import ru.kirillvenediktov.philosophy.chapter14.pets.Pet;
-import ru.kirillvenediktov.philosophy.chapter14.pets.Pets;
 import ru.kirillvenediktov.philosophy.util.TypeCounter;
 
 public class PetCount4 {

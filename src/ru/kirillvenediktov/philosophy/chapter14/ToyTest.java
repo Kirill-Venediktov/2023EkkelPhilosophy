@@ -1,5 +1,7 @@
 package ru.kirillvenediktov.philosophy.chapter14;
 
+import java.lang.reflect.InvocationTargetException;
+
 interface HasBatteries {
 
 }
@@ -22,7 +24,6 @@ class Toy {
 //    }
 
     public Toy(int i) {
-
     }
 }
 
@@ -42,28 +43,41 @@ public class ToyTest {
     }
 
     public static void main(String[] args) {
-        Class c = null;
+
         try {
-            c = Class.forName("ru.kirillvenediktov.philosophy.chapter14.FancyToy");
-        } catch (ClassNotFoundException e) {
-            System.out.println("Не удается найти FancyToy");
-            System.exit(1);
-        }
-        printInfo(c);
-        for (Class face : c.getInterfaces()) {
-            printInfo(face);
-        }
-        Class up = c.getSuperclass();
-        Object obj = null;
-        try {
-            obj = up.newInstance();
+            Toy.class.getDeclaredConstructor(int.class).newInstance(1);
         } catch (InstantiationException e) {
-            System.out.println("Не удалось создать экземпляр");
-            System.exit(1);
+            e.printStackTrace();
         } catch (IllegalAccessException e) {
-            System.out.println("Access denied");
-            System.exit(1);
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
         }
-        printInfo(obj.getClass());
+
+//        Class c = null;
+//        try {
+//            c = Class.forName("ru.kirillvenediktov.philosophy.chapter14.FancyToy");
+//        } catch (ClassNotFoundException e) {
+//            System.out.println("Не удается найти FancyToy");
+//            System.exit(1);
+//        }
+//        printInfo(c);
+//        for (Class face : c.getInterfaces()) {
+//            printInfo(face);
+//        }
+//        Class up = c.getSuperclass();
+//        Object obj = null;
+//        try {
+//            obj = up.newInstance();
+//        } catch (InstantiationException e) {
+//            System.out.println("Не удалось создать экземпляр");
+//            System.exit(1);
+//        } catch (IllegalAccessException e) {
+//            System.out.println("Access denied");
+//            System.exit(1);
+//        }
+//        printInfo(obj.getClass());
     }
 }

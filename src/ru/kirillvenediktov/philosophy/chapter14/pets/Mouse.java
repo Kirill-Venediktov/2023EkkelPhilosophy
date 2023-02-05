@@ -8,4 +8,13 @@ public class Mouse extends Rodent {
 
     public Mouse() {
     }
+
+    public static class Factory
+            implements ru.kirillvenediktov.philosophy.chapter14.factory.Factory<Mouse> {
+
+        @Override
+        public Mouse create() {
+            return new Mouse();
+        }
+    }
 }

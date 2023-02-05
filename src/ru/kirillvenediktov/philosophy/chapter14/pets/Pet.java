@@ -7,4 +7,13 @@ public class Pet {
 
     public Pet() {
     }
+
+    public static class Factory
+            implements ru.kirillvenediktov.philosophy.chapter14.factory.Factory<Pet> {
+
+        @Override
+        public Pet create() {
+            return new Pet();
+        }
+    }
 }

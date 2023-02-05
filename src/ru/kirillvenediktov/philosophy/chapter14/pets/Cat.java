@@ -8,4 +8,13 @@ public class Cat extends Pet {
 
     public Cat() {
     }
+
+    public static class Factory
+            implements ru.kirillvenediktov.philosophy.chapter14.factory.Factory<Cat> {
+
+        @Override
+        public Cat create() {
+            return new Cat();
+        }
+    }
 }
