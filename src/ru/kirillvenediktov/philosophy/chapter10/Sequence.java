@@ -7,16 +7,16 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 
-public class Sequence {
+public class Sequence<T> {
 
     private static final int LIST_LIMIT = 20;
-    private List items;
+    private List<T> items;
 
     public Sequence() {
         items = new ArrayList();
     }
 
-    public void add(Object x) {
+    public void add(T x) {
         if (items.size() > LIST_LIMIT) {
             throw new ListOverflowException();
         }
@@ -65,7 +65,7 @@ class Task2 {
 
     public static void main(String[] args) {
         Sequence sequence = new Sequence();
-        for (int i = 0; i < 22; i++) {
+        for (int i = 0; i < 19; i++) {
             sequence.add(new Task2(i));
         }
         Iterator iterator = sequence.iterator();
