@@ -31,6 +31,18 @@ class Part {
     }
 }
 
+class NullPart extends Part implements Null {
+    public NullPart() {
+        super();
+    }
+    public static final Part NULL = new NullPart();
+    public static class Factory implements ru.kirillvenediktov.philosophy.chapter14.factory.Factory<NullPart> {
+        public NullPart create() { return (NullPart)NULL; }
+    }
+    public String toString() { return "NULL"; }
+
+}
+
 class Filter extends Part {
 
 }
