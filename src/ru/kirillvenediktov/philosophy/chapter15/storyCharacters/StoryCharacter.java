@@ -1,6 +1,6 @@
-package ru.kirillvenediktov.philosophy.chapter15.coffee;
+package ru.kirillvenediktov.philosophy.chapter15.storyCharacters;
 
-public class Coffee {
+public class StoryCharacter {
 
     private static long counter = 0;
 
@@ -10,4 +10,5 @@ public class Coffee {
     public String toString() {
         return getClass().getSimpleName() + " " + id;
     }
+
 }

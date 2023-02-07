@@ -6,7 +6,6 @@ import ru.kirillvenediktov.philosophy.chapter15.coffee.Coffee;
 import ru.kirillvenediktov.philosophy.chapter15.coffee.CoffeeGenerator;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Random;
 
 public class RandomList<T> {
