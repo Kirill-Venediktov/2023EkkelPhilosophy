@@ -14,23 +14,35 @@ class House extends Building {
 
 public class ClassTypeCapture<T> {
 
-    Class<T> kind;
     Map<String, Class<?>> map = new HashMap<>();
 
     public ClassTypeCapture(Class<T> kind) {
-        this.kind = kind;
+        map.put(kind.getName(), kind);
     }
 
     public boolean f(Object arg) {
-        return kind.isInstance(arg);
+        return f(arg.getClass().getName());
+    }
+
+    public boolean f(String className) {
+        boolean isPresent = false;
+        if (map.get(className) != null) {
+            isPresent = true;
+        }
+        return isPresent;
     }
 
     public Class<?> addType(String typename, Class<?> kind) {
-       return map.put(typename, kind);
+        return map.put(typename, kind);
     }
 
-    public Object createNew(String typename) throws ClassNotFoundException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
-        return Class.forName(typename).getDeclaredConstructor().newInstance();
+    public Object createNew(String typename) throws ClassNotFoundException, NoSuchMethodException,
+            IllegalAccessException, InvocationTargetException, InstantiationException {
+        if (f(typename)) {
+            return map.get(typename).getDeclaredConstructor().newInstance();
+        } else {
+            throw new ClassNotFoundException();
+        }
     }
 
     public static void main(String[] args) {
@@ -41,7 +53,7 @@ public class ClassTypeCapture<T> {
         System.out.println(ctt2.f(new Building()));
         System.out.println(ctt2.f(new House()));
 
-        ctt1.addType("String", String.class);
+        ctt1.addType("java.lang.String", String.class);
         System.out.println(ctt1.map);
 
         try {

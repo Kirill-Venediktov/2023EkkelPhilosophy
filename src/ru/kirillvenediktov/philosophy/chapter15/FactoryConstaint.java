@@ -1,35 +1,34 @@
 package ru.kirillvenediktov.philosophy.chapter15;
 
-import ru.kirillvenediktov.philosophy.chapter6_1.access.Widget;
+interface FactoryI<T, Q> {
 
-interface FactoryI<T> {
-
-    T create(int a);
+    T create(Q a);
 }
 
-class Foo2<T> {
+class Foo2<T, Q> {
 
     private T x;
 
-    public <F extends FactoryI<T>> Foo2(F factory, int a) {
+    public <F extends FactoryI<T, Q>> Foo2(F factory, Q a) {
         x = factory.create(a);
     }
 }
 
-class IntegerFactory implements FactoryI<Integer> {
+class IntegerFactory implements FactoryI<Integer, Integer> {
 
     @Override
-    public Integer create(int a) {
+    public Integer create(Integer a) {
         return a;
     }
 }
 
 class Widget2 {
 
-    public static class Factory implements FactoryI<Widget2> {
+    public static class Factory implements FactoryI<Widget2, String> {
 
         @Override
-        public Widget2 create(int a) {
+        public Widget2 create(String s) {
+            System.out.println(s);
             return new Widget2();
         }
     }
@@ -38,8 +37,7 @@ class Widget2 {
 public class FactoryConstaint {
 
     public static void main(String[] args) {
-        new Foo2<Integer>(new IntegerFactory(), 7);
-        new Foo2<Widget>(new Widget2.Factory(), 8);
-
+        new Foo2<Integer, Integer>(new IntegerFactory(), 7);
+        new Foo2<Widget2, String>(new Widget2.Factory(), "Hello");
     }
 }
