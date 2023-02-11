@@ -9,6 +9,11 @@ public class EgyptianMau extends Cat {
     public EgyptianMau() {
     }
 
+    @Override
+    public void speak() {
+        System.out.println("Egyptian mau speaks");
+    }
+
     public static class Factory
             implements ru.kirillvenediktov.philosophy.chapter14.factory.Factory<EgyptianMau> {
 

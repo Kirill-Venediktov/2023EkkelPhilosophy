@@ -9,6 +9,11 @@ public class Mouse extends Rodent {
     public Mouse() {
     }
 
+    @Override
+    public void speak() {
+        System.out.println("Mouse speaks");
+    }
+
     public static class Factory
             implements ru.kirillvenediktov.philosophy.chapter14.factory.Factory<Mouse> {
 

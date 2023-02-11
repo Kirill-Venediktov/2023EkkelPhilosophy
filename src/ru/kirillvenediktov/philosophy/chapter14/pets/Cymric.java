@@ -9,6 +9,11 @@ public class Cymric extends Manx {
     public Cymric() {
     }
 
+    @Override
+    public void speak() {
+        System.out.println("cymric speaks");
+    }
+
     public static class Factory
             implements ru.kirillvenediktov.philosophy.chapter14.factory.Factory<Cymric> {
 

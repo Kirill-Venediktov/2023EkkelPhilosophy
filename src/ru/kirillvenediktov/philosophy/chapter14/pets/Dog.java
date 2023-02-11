@@ -9,6 +9,11 @@ public class Dog extends Pet {
     public Dog() {
     }
 
+    @Override
+    public void speak() {
+        System.out.println("bark bark");
+    }
+
     public static class Factory
             implements ru.kirillvenediktov.philosophy.chapter14.factory.Factory<Dog> {
 
