@@ -2,6 +2,8 @@ package ru.kirillvenediktov.philosophy.util;
 
 import ru.kirillvenediktov.philosophy.chapter16.BerylliumSphere;
 
+import java.math.BigDecimal;
+
 public class CountingGenerator {
 
     public static class Boolean implements Generator<java.lang.Boolean> {
@@ -117,10 +119,20 @@ public class CountingGenerator {
 
     public static class BerylliumSphere implements Generator<ru.kirillvenediktov.philosophy.chapter16.BerylliumSphere> {
 
-
         @Override
         public ru.kirillvenediktov.philosophy.chapter16.BerylliumSphere next() {
             return new ru.kirillvenediktov.philosophy.chapter16.BerylliumSphere();
+        }
+    }
+
+    public static class BigDecimal implements Generator<java.math.BigDecimal> {
+
+        private java.math.BigDecimal value = java.math.BigDecimal.valueOf(0.0);
+
+        @Override
+        public java.math.BigDecimal next() {
+            value = value.add(java.math.BigDecimal.valueOf(1.0));
+            return value;
         }
     }
 

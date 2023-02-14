@@ -4,7 +4,6 @@ import ru.kirillvenediktov.philosophy.util.ConvertTo;
 import ru.kirillvenediktov.philosophy.util.Generated;
 import ru.kirillvenediktov.philosophy.util.SkipGenerator;
 
-import java.math.BigDecimal;
 import java.util.Arrays;
 
 public class TestArrayGeneration {
