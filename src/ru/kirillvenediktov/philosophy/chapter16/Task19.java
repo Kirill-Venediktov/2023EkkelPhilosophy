@@ -3,7 +3,7 @@ package ru.kirillvenediktov.philosophy.chapter16;
 import java.util.Arrays;
 import java.util.Objects;
 
-public class Task19 {
+public class Task19 implements Comparable<Task19> {
 
     private int anInt;
 
@@ -22,6 +22,11 @@ public class Task19 {
     @Override
     public int hashCode() {
         return Objects.hash(anInt);
+    }
+
+    @Override
+    public int compareTo(Task19 o) {
+        return Integer.compare(anInt, o.anInt);
     }
 
     @Override
@@ -44,5 +49,11 @@ public class Task19 {
         System.out.println(Arrays.toString(t2));
         System.out.println(Arrays.equals(t1, t2));
 
+        Task19 task19 = new Task19(size -1);
+        int location = Arrays.binarySearch(t1, task19);
+        System.out.println("Location of " + task19 + " is "
+                + location + ", t1[" + location + "] = " + t1[location]);
+
     }
+
 }
