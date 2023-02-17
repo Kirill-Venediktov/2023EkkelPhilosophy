@@ -238,7 +238,7 @@ public class Countries {
         return names;
     }
     public static List<String> names(int size) {
-        return new ArrayList<String>(select(size).keySet());
+        return new ArrayList<>(select(size).keySet());
     }
 
     public static void main(String[] args) {
