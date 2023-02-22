@@ -79,8 +79,9 @@ public class Maps {
         test(new ConcurrentHashMap<Integer, String>());
         test(new WeakHashMap<Integer, String>());
 
-        Properties properties = new Properties();
         test2(new Properties());
+        System.out.println("------------");
+        test(new SlowMap<>());
     }
 
 
