@@ -19,7 +19,6 @@ public class Task19 {
                 storage.put(word, 1);
             }
         }
-
         return storage;
     }
 

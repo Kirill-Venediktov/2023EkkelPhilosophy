@@ -4,7 +4,6 @@ import ru.kirillvenediktov.philosophy.util.Countries;
 
 import java.util.AbstractMap;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.ListIterator;
@@ -56,15 +55,15 @@ public class SimpleHashMap<K, V> extends AbstractMap<K, V> {
     @Override
     public V get(Object key) {
         V value = null;
-        MapEntry<K,V> mapEntry = getMapEntry(key);
+        MapEntry<K, V> mapEntry = getMapEntry(key);
         if (mapEntry != null) {
             value = mapEntry.getValue();
         }
         return value;
     }
 
-    private MapEntry<K,V> getMapEntry(Object key) {
-        MapEntry<K,V> mapEntry = null;
+    private MapEntry<K, V> getMapEntry(Object key) {
+        MapEntry<K, V> mapEntry = null;
         int index = getIndex(key);
         if (buckets[index] != null) {
             for (MapEntry<K, V> iPair : buckets[index]) {
@@ -99,7 +98,7 @@ public class SimpleHashMap<K, V> extends AbstractMap<K, V> {
     @Override
     public V remove(Object key) {
         V value = null;
-        MapEntry<K,V> mapEntry = getMapEntry(key);
+        MapEntry<K, V> mapEntry = getMapEntry(key);
         if (mapEntry != null) {
             value = mapEntry.getValue();
             buckets[getIndex(key)].remove(mapEntry);
@@ -120,7 +119,7 @@ public class SimpleHashMap<K, V> extends AbstractMap<K, V> {
     @Override
     public boolean containsValue(Object value) {
         boolean contains = false;
-        for (Entry<K,V> entry : entrySet()) {
+        for (Entry<K, V> entry : entrySet()) {
             if (entry.getValue().equals(value)) {
                 contains = true;
                 break;
@@ -132,7 +131,7 @@ public class SimpleHashMap<K, V> extends AbstractMap<K, V> {
     @Override
     public boolean containsKey(Object key) {
         boolean contains = false;
-        for (Entry<K,V> entry : entrySet()) {
+        for (Entry<K, V> entry : entrySet()) {
             if (entry.getKey().equals(key)) {
                 contains = true;
                 break;
