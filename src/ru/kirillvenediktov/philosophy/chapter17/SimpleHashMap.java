@@ -6,44 +6,33 @@ import java.util.AbstractMap;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.LinkedList;
-import java.util.ListIterator;
 import java.util.Map;
 import java.util.Set;
 
 public class SimpleHashMap<K, V> extends AbstractMap<K, V> {
 
     static final int SIZE = 997;
+    public static final int MAP_ENTRY_INDEX = 0;
 
     LinkedList<MapEntry<K, V>>[] buckets = new LinkedList[SIZE];
 
     @Override
     public V put(K key, V value) {
         V oldValue = null;
-        int index = Math.abs(key.hashCode()) % SIZE;
+        int index = getIndex(key);
         if (buckets[index] == null) {
             buckets[index] = new LinkedList<>();
         }
         LinkedList<MapEntry<K, V>> bucket = buckets[index];
         MapEntry<K, V> pair = new MapEntry<>(key, value);
-        boolean found = false;
-        ListIterator<MapEntry<K, V>> it = bucket.listIterator();
-        int count = 0;
-        while (it.hasNext()) {
-            MapEntry<K, V> iPair = it.next();
-            count++;
-            if (iPair.getKey().equals(key)) {
-                System.out.println("Collision. key = " + key + " value = " + value + " bucket = " + bucket);
-                System.out.println("iterations number: " + count);
-                oldValue = iPair.getValue();
-                it.set(pair);
-                found = true;
+        if (!bucket.isEmpty()){
+            MapEntry<K,V> current = bucket.get(MAP_ENTRY_INDEX);
+            while (current.getNext() != null) {
+                current = current.getNext();
             }
-        }
-        if (!found) {
-            if (buckets[index].size() != 0) {
-                System.out.println("Collision. key = " + key + " value = " + value + " bucket = " + bucket);
-            }
-            buckets[index].add(pair);
+            current.setNext(pair);
+        } else {
+            bucket.add(pair);
         }
         return oldValue;
     }
@@ -65,12 +54,13 @@ public class SimpleHashMap<K, V> extends AbstractMap<K, V> {
     private MapEntry<K, V> getMapEntry(Object key) {
         MapEntry<K, V> mapEntry = null;
         int index = getIndex(key);
-        if (buckets[index] != null) {
-            for (MapEntry<K, V> iPair : buckets[index]) {
-                if (iPair.getKey().equals(key)) {
-                    mapEntry = iPair;
-                    break;
-                }
+        if (buckets[index] != null && !buckets[index].isEmpty()) {
+            MapEntry<K,V> current = buckets[index].get(MAP_ENTRY_INDEX);
+            while(!current.getKey().equals(key) && current.getNext() != null) {
+                current = current.getNext();
+            }
+            if (current.getKey().equals(key)){
+                mapEntry = current;
             }
         }
         return mapEntry;
@@ -80,11 +70,13 @@ public class SimpleHashMap<K, V> extends AbstractMap<K, V> {
     public Set<Entry<K, V>> entrySet() {
         Set<Map.Entry<K, V>> set = new HashSet<>();
         for (LinkedList<MapEntry<K, V>> bucket : buckets) {
-            if (bucket == null) {
-                continue;
-            }
-            for (MapEntry<K, V> mpair : bucket) {
-                set.add(mpair);
+            if (bucket != null && !bucket.isEmpty()) {
+                MapEntry<K,V> current = bucket.get(MAP_ENTRY_INDEX);
+                set.add(current);
+                while (current.getNext() != null) {
+                    current = current.getNext();
+                    set.add(current);
+                }
             }
         }
         return set;
@@ -101,7 +93,26 @@ public class SimpleHashMap<K, V> extends AbstractMap<K, V> {
         MapEntry<K, V> mapEntry = getMapEntry(key);
         if (mapEntry != null) {
             value = mapEntry.getValue();
-            buckets[getIndex(key)].remove(mapEntry);
+            LinkedList<MapEntry<K, V>> bucket = buckets[getIndex(mapEntry.getKey())];
+            MapEntry<K,V> current = bucket.get(MAP_ENTRY_INDEX);
+            if (current.equals(mapEntry)) {
+                if (current.getNext() != null) {
+                    bucket.set(MAP_ENTRY_INDEX, current.getNext());
+                } else {
+                    bucket.clear();
+                }
+            } else {
+                MapEntry<K,V> previous = current;
+                while (!current.equals(mapEntry)){
+                    previous = current;
+                    current = current.getNext();
+                }
+                if (current.getNext() != null) {
+                    previous.setNext(current.getNext());
+                } else {
+                    previous.setNext(null);
+                }
+            }
         }
         return value;
     }
@@ -158,7 +169,7 @@ public class SimpleHashMap<K, V> extends AbstractMap<K, V> {
 
     @Override
     public String toString() {
-        return "{" + Arrays.toString(buckets) + '}';
+        return "{" + entrySet() + '}';
     }
 
     public static void main(String[] args) {

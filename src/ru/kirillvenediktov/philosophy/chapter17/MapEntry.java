@@ -9,6 +9,8 @@ public class MapEntry<K, V> implements Map.Entry<K, V> {
 
     private V value;
 
+    private MapEntry<K,V> next;
+
     public MapEntry(K key, V value) {
         this.key = key;
         this.value = value;
@@ -29,6 +31,14 @@ public class MapEntry<K, V> implements Map.Entry<K, V> {
         V result = value;
         value = v;
         return result;
+    }
+
+    public MapEntry<K, V> getNext() {
+        return next;
+    }
+
+    public void setNext(MapEntry<K, V> next) {
+        this.next = next;
     }
 
     @Override
