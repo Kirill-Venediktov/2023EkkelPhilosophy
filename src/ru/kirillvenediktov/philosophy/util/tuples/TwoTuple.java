@@ -1,6 +1,6 @@
 package ru.kirillvenediktov.philosophy.util.tuples;
 
-public class TwoTuple<A, B> {
+public class TwoTuple<A, B> implements Comparable{
 
     public final A first;
 
@@ -17,5 +17,26 @@ public class TwoTuple<A, B> {
                 "first=" + first +
                 ", second=" + second +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        return o instanceof TwoTuple &&
+                first.equals(((TwoTuple<?, ?>) o).first) &&
+                second.equals(((TwoTuple<?, ?>) o).second);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = 17;
+        result = 37 * result + first.hashCode();
+        result = 37 * result + second.hashCode();
+        return result;
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        if (o == null) throw new ClassCastException();
+        return Integer.compare(hashCode(),o.hashCode());
     }
 }
