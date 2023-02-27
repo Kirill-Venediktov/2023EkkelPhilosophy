@@ -5,27 +5,27 @@ import ru.kirillvenediktov.philosophy.util.RandomGenerator;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class Task31 {
+public class Task32 {
 
-    private String[] storage;
+    private int[] storage;
 
     private static final int DEFAULT_SIZE = 20;
 
     private static final int ADDITION = 10;
 
-    public Task31() {
-        storage = new String[DEFAULT_SIZE];
+    public Task32() {
+        storage = new int[DEFAULT_SIZE];
     }
 
-    public Task31(int size) {
-        storage = new String[size];
+    public Task32(int size) {
+        storage = new int[size];
     }
 
-    private boolean addToArray(String s) {
+    private boolean addToArray(int item) {
         boolean modified = false;
         for (int i = 0; i < storage.length; i++) {
-            if (storage[i] == null) {
-                storage[i] = s;
+            if (storage[i] == 0) {
+                storage[i] = item;
                 modified = true;
                 break;
             }
@@ -34,12 +34,12 @@ public class Task31 {
     }
 
     private void increaseStorage() {
-        String[] newStorage = new String[storage.length + ADDITION];
-        for (String s : storage) {
-            if (s != null) {
+        int[] newStorage = new int[storage.length + ADDITION];
+        for (int i : storage) {
+            if (i != 0) {
                 for (int j = 0; j < newStorage.length; j++) {
-                    if (newStorage[j] == null) {
-                        newStorage[j] = s;
+                    if (newStorage[j] == 0) {
+                        newStorage[j] = i;
                         break;
                     }
                 }
@@ -48,8 +48,8 @@ public class Task31 {
         storage = newStorage;
     }
 
-    public void add(String s) {
-        while (!addToArray(s)) {
+    public void add(int i) {
+        while (!addToArray(i)) {
             increaseStorage();
         }
     }
@@ -57,17 +57,17 @@ public class Task31 {
     public boolean remove(int index) {
         boolean modified = false;
         if (index < storage.length) {
-            storage[index] = null;
+            storage[index] = 0;
             modified = true;
         }
         return modified;
     }
 
-    public boolean remove(String s) {
+    public boolean removeItem(int item) {
         boolean modified = false;
         for (int i = 0; i < storage.length; i++) {
-            if (storage[i].equals(s)) {
-                storage[i] = null;
+            if (storage[i] == item) {
+                storage[i] = 0;
                 modified = true;
                 break;
             }
@@ -80,7 +80,7 @@ public class Task31 {
     }
 
     public void clear() {
-        storage = new String[DEFAULT_SIZE];
+        storage = new int[DEFAULT_SIZE];
     }
 
     @Override
@@ -91,8 +91,8 @@ public class Task31 {
     }
 
     public static void main(String[] args) {
-        RandomGenerator.String rg = new RandomGenerator.String();
-        Task31 task31 = new Task31();
+        RandomGenerator.Integer rg = new RandomGenerator.Integer();
+        Task32 task31 = new Task32();
         for (int i = 0; i < 50; i++) {
             task31.add(rg.next());
         }
@@ -102,32 +102,32 @@ public class Task31 {
     }
 }
 
-class Task31Test {
+class Task32Test {
 
-    public static long addTimeTest(Task31 list, int iter) {
+    public static long addTimeTest(Task32 list, int iter) {
         list.clear();
         long start = System.nanoTime();
         for (int i = 0; i < iter; i++) {
-            list.add("hi");
+            list.add(5);
         }
         long finish = System.nanoTime();
         return (finish - start) / iter;
     }
 
-    public static long addTimeTest(ArrayList<String> list, int iter) {
+    public static long addTimeTest(ArrayList<Integer> list, int iter) {
         list.clear();
         long start = System.nanoTime();
         for (int i = 0; i < iter; i++) {
-            list.add("hi");
+            list.add(5);
         }
         long finish = System.nanoTime();
         return (finish - start) / iter;
     }
 
-    public static long removeTimeTest(Task31 list, int iter) {
+    public static long removeTimeTest(Task32 list, int iter) {
         list.clear();
         for (int i = 0; i < iter; i++) {
-            list.add("hi");
+            list.add(5);
         }
         long start = System.nanoTime();
         for (int i = 0; i < iter; i++) {
@@ -137,10 +137,10 @@ class Task31Test {
         return (finish - start) / iter;
     }
 
-    public static long removeTimeTest(ArrayList<String> list, int iter) {
+    public static long removeTimeTest(ArrayList<Integer> list, int iter) {
         list.clear();
         for (int i = 0; i < iter; i++) {
-            list.add("hi");
+            list.add(5);
         }
         long start = System.nanoTime();
         for (int i = 0; i < iter; i++) {
@@ -151,33 +151,33 @@ class Task31Test {
     }
 
     public static void main(String[] args) {
-        ArrayList<String> arrayList = new ArrayList<>();
-        Task31 task31 = new Task31();
+        ArrayList<Integer> arrayList = new ArrayList<>();
+        Task32 task32 = new Task32();
         System.out.println("Add times (ns)");
         System.out.println("10");
-        System.out.println("Task31: " + addTimeTest(task31, 10));
+        System.out.println("Task31: " + addTimeTest(task32, 10));
         System.out.println("ArrayList: " + addTimeTest(arrayList, 10));
         System.out.println("100");
-        System.out.println("Task31: " + addTimeTest(task31, 100));
+        System.out.println("Task31: " + addTimeTest(task32, 100));
         System.out.println("ArrayList: " + addTimeTest(arrayList, 100));
         System.out.println("1 000");
-        System.out.println("Task31: " + addTimeTest(task31, 1000));
+        System.out.println("Task31: " + addTimeTest(task32, 1000));
         System.out.println("ArrayList: " + addTimeTest(arrayList, 1000));
         System.out.println("10 000");
-        System.out.println("Task31: " + addTimeTest(task31, 10000));
+        System.out.println("Task31: " + addTimeTest(task32, 10000));
         System.out.println("ArrayList: " + addTimeTest(arrayList, 10000));
         System.out.println("Remove times (ns)");
         System.out.println("10");
-        System.out.println("Task31: " + removeTimeTest(task31, 10));
+        System.out.println("Task31: " + removeTimeTest(task32, 10));
         System.out.println("ArrayList: " + removeTimeTest(arrayList, 10));
         System.out.println("100");
-        System.out.println("Task31: " + removeTimeTest(task31, 100));
+        System.out.println("Task31: " + removeTimeTest(task32, 100));
         System.out.println("ArrayList: " + removeTimeTest(arrayList, 100));
         System.out.println("1000");
-        System.out.println("Task31: " + removeTimeTest(task31, 1000));
+        System.out.println("Task31: " + removeTimeTest(task32, 1000));
         System.out.println("ArrayList: " + removeTimeTest(arrayList, 1000));
         System.out.println("10 000");
-        System.out.println("Task31: " + removeTimeTest(task31, 10000));
+        System.out.println("Task31: " + removeTimeTest(task32, 10000));
         System.out.println("ArrayList: " + removeTimeTest(arrayList, 10000));
     }
 
