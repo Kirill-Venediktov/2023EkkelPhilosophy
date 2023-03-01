@@ -1,17 +1,20 @@
 package ru.kirillvenediktov.philosophy.chapter17;
 
-import ru.kirillvenediktov.philosophy.util.Countries;
+import ru.kirillvenediktov.philosophy.util.RandomGenerator;
 
 import java.util.AbstractMap;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.LinkedList;
-import java.util.Map;
 import java.util.Set;
 
-public class SimpleHashMap<K, V> extends AbstractMap<K, V> {
+public class SimpleHashMapTsk39<K, V> extends AbstractMap<K, V> {
+
+    private static final float loadFactor = 0.75f;
 
     static final int SIZE = 997;
+
+    private int actualMaxSize = SIZE;
 
     public static final int MAP_ENTRY_INDEX = 0;
 
@@ -35,11 +38,52 @@ public class SimpleHashMap<K, V> extends AbstractMap<K, V> {
         } else {
             bucket.add(pair);
         }
+        rehash();
         return oldValue;
     }
 
+
+    public int getNumberOfNotNullBuckets() {
+        int count = 0;
+        for (LinkedList<MapEntry<K, V>> bucket : buckets) {
+            if (bucket != null && !bucket.isEmpty()) {
+                count++;
+            }
+        }
+        return count;
+    }
+
+    private int getNewActualSize(int current) {
+        while (true){
+            boolean isPrime = true;
+            for (int i = 2; i < current; i++) {
+                if (current % i == 0){
+                    isPrime = false;
+                    break;
+                }
+            }
+            if (!isPrime) {
+                current++;
+            } else {
+                break;
+            }
+        }
+        return current;
+    }
+
+    private void rehash() {
+        if (getNumberOfNotNullBuckets() > loadFactor * actualMaxSize) {
+            actualMaxSize = getNewActualSize(actualMaxSize * 2);
+            Set<Entry<K, V>> entries = entrySet();
+            buckets = new LinkedList[actualMaxSize];
+            for (Entry<K, V> entry : entries) {
+                put(entry.getKey(), entry.getValue());
+            }
+        }
+    }
+
     private int getIndex(Object o) {
-        return Math.abs(o.hashCode()) % SIZE;
+        return Math.abs(o.hashCode()) % actualMaxSize;
     }
 
     @Override
@@ -69,7 +113,7 @@ public class SimpleHashMap<K, V> extends AbstractMap<K, V> {
 
     @Override
     public Set<Entry<K, V>> entrySet() {
-        Set<Map.Entry<K, V>> set = new HashSet<>();
+        Set<Entry<K, V>> set = new HashSet<>();
         for (LinkedList<MapEntry<K, V>> bucket : buckets) {
             if (bucket != null && !bucket.isEmpty()) {
                 MapEntry<K, V> current = bucket.get(MAP_ENTRY_INDEX);
@@ -85,6 +129,7 @@ public class SimpleHashMap<K, V> extends AbstractMap<K, V> {
 
     @Override
     public void clear() {
+        actualMaxSize = SIZE;
         buckets = new LinkedList[SIZE];
     }
 
@@ -157,7 +202,7 @@ public class SimpleHashMap<K, V> extends AbstractMap<K, V> {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
-        SimpleHashMap<?, ?> that = (SimpleHashMap<?, ?>) o;
+        SimpleHashMapTsk39<?, ?> that = (SimpleHashMapTsk39<?, ?>) o;
         return Arrays.equals(buckets, that.buckets);
     }
 
@@ -174,14 +219,19 @@ public class SimpleHashMap<K, V> extends AbstractMap<K, V> {
     }
 
     public static void main(String[] args) {
-        SimpleHashMap<String, String> m = new SimpleHashMap<>();
-        m.putAll(Countries.capitals(25));
+        SimpleHashMapTsk39<String, String> m = new SimpleHashMapTsk39<>();
+        RandomGenerator.String gen = new RandomGenerator.String();
+        for (int i = 0; i < 997; i++) {
+            m.put(gen.next(), gen.next());
+        }
         System.out.println(m);
-        System.out.println(m.get("ERITREA"));
-        System.out.println(m.entrySet());
-        m.remove("ERITREA");
-        System.out.println(m);
-        m.clear();
-        System.out.println(m);
+        System.out.println("not null buckets: " + m.getNumberOfNotNullBuckets());
+        System.out.println(m.size());
+        for (int i = 0; i < 200; i++) {
+            m.put(gen.next(), gen.next());
+        }
+        System.out.println("not null buckets: " + m.getNumberOfNotNullBuckets());
+        System.out.println(m.size());
+
     }
 }
