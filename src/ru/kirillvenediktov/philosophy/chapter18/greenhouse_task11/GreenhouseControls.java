@@ -1,4 +1,4 @@
-package ru.kirillvenediktov.philosophy.chapter10.greenhouse;
+package ru.kirillvenediktov.philosophy.chapter18.greenhouse_task11;
 
 import java.util.Iterator;
 import java.util.List;
@@ -81,7 +81,7 @@ public class GreenhouseControls extends Controller {
 
     public class VentilationOn extends Event {
 
-        public VentilationOn (long delayTime) {
+        public VentilationOn(long delayTime) {
             super(delayTime);
         }
 
@@ -98,7 +98,7 @@ public class GreenhouseControls extends Controller {
 
     public class VentilationOff extends Event {
 
-        public VentilationOff (long delayTime) {
+        public VentilationOff(long delayTime) {
             super(delayTime);
         }
 
