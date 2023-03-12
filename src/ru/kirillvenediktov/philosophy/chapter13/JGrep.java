@@ -11,7 +11,7 @@ public class JGrep {
             System.out.println("Usage: java JGrep file regex");
             System.exit(0);
         }
-        Pattern p = Pattern.compile(args[1], Integer.parseInt(args[2]));
+        Pattern p = Pattern.compile(args[1]);
         int index = 0;
         Matcher m = p.matcher("");
         for (String line : new TextFile(args[0])) {

@@ -1,9 +1,6 @@
 package ru.kirillvenediktov.philosophy.chapter18;
 
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.nio.CharBuffer;
-import java.nio.channels.FileChannel;
 
 public class Task23 {
 
