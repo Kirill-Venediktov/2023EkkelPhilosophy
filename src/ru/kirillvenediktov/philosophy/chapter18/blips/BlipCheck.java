@@ -44,6 +44,7 @@ public class BlipCheck implements Externalizable {
 }
 
 class Blips {
+
     public static void main(String[] args) throws IOException, ClassNotFoundException {
         System.out.println("Constructing objects:");
         Blip1 b1 = new Blip1();

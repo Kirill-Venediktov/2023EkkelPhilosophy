@@ -10,8 +10,11 @@ import java.io.ObjectOutput;
 import java.io.ObjectOutputStream;
 
 public class Blip3 implements Externalizable {
+
     private int i;
+
     private String s;
+
     public Blip3() {
         System.out.println("Blip3 Constructor");
     }
