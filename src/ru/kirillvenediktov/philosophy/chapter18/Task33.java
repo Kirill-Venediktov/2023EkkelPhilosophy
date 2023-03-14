@@ -5,6 +5,7 @@ import java.util.prefs.BackingStoreException;
 import java.util.prefs.Preferences;
 
 public class Task33 {
+
     public static void main(String[] args) throws BackingStoreException {
         Preferences prefs = Preferences.userNodeForPackage(Task33.class);
         int value = prefs.getInt("Base directory", 0);

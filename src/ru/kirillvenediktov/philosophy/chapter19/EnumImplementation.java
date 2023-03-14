@@ -6,6 +6,7 @@ import java.util.Random;
 
 enum CartoonCharacter implements Generator<CartoonCharacter> {
     SLAPPY, SPANKY, PUNCHY, SILLY, BOUNCHY, NUTTY, BOB;
+
     private Random random = new Random(47);
 
     @Override
@@ -15,6 +16,7 @@ enum CartoonCharacter implements Generator<CartoonCharacter> {
 }
 
 public class EnumImplementation {
+
     public static <T> void printNext(Generator<T> rg) {
         System.out.print(rg.next() + ", ");
     }

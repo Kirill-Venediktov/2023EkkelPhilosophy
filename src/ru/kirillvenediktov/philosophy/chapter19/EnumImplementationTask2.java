@@ -4,6 +4,7 @@ import java.util.Random;
 
 enum CartoonCharacterTask2 {
     SLAPPY, SPANKY, PUNCHY, SILLY, BOUNCHY, NUTTY, BOB;
+
     private static Random random = new Random(47);
 
     public static CartoonCharacterTask2 next() {

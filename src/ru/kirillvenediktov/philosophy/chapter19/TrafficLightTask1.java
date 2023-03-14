@@ -5,14 +5,19 @@ import static ru.kirillvenediktov.philosophy.chapter19.Signal.YELLOW;
 import static ru.kirillvenediktov.philosophy.chapter19.Signal.RED;
 
 public class TrafficLightTask1 {
+
     Signal color = RED;
+
     public void change() {
         switch (color) {
-            case RED: color = GREEN;
+            case RED:
+                color = GREEN;
                 break;
-            case GREEN: color = YELLOW;
+            case GREEN:
+                color = YELLOW;
                 break;
-            case YELLOW: color = RED;
+            case YELLOW:
+                color = RED;
                 break;
         }
     }
