@@ -4,6 +4,7 @@ import ru.kirillvenediktov.philosophy.util.Enums;
 
 import java.util.EnumMap;
 import java.util.Iterator;
+import java.util.Map;
 
 class MailTask9 {
 
@@ -87,14 +88,13 @@ class MailTask9 {
 
 public class PostOfficeTask9 {
 
-    private interface Command {
+    static EnumMap<MailHandler, Command> enumMap = new EnumMap<>(MailHandler.class);
 
-        boolean handle(MailTask9 m);
-    }
-    
-    enum MailHandler {
-        GENERAL_DELIVERY {
-            boolean handle(MailTask9 m) {
+    static {
+        enumMap.put(MailHandler.GENERAL_DELIVERY, new Command() {
+
+            @Override
+            public boolean handle(MailTask9 m) {
                 switch (m.generalDelivery) {
                     case YES:
                         System.out.println("Using general delivery for " + m);
@@ -103,9 +103,11 @@ public class PostOfficeTask9 {
                         return false;
                 }
             }
-        },
-        MACHINE_SCAN {
-            boolean handle(MailTask9 m) {
+        });
+        enumMap.put(MailHandler.MACHINE_SCAN, new Command() {
+
+            @Override
+            public boolean handle(MailTask9 m) {
                 switch (m.scannability) {
                     case UNSCANNABLE:
                         return false;
@@ -119,9 +121,11 @@ public class PostOfficeTask9 {
                         }
                 }
             }
-        },
-        VISUAL_INSPECTION {
-            boolean handle(MailTask9 m) {
+        });
+        enumMap.put(MailHandler.VISUAL_INSPECTION, new Command() {
+
+            @Override
+            public boolean handle(MailTask9 m) {
                 switch (m.readability) {
                     case ILLEGIBLE:
                         return false;
@@ -135,9 +139,11 @@ public class PostOfficeTask9 {
                         }
                 }
             }
-        },
-        RETURN_TO_SENDER {
-            boolean handle(MailTask9 m) {
+        });
+        enumMap.put(MailHandler.RETURN_TO_SENDER, new Command() {
+
+            @Override
+            public boolean handle(MailTask9 m) {
                 switch (m.returnAddress) {
                     case MISSING:
                         return false;
@@ -146,15 +152,24 @@ public class PostOfficeTask9 {
                         return true;
                 }
             }
-        };
+        });
+    }
 
-        abstract boolean handle(MailTask9 m);
+    private interface Command {
+
+        boolean handle(MailTask9 m);
+    }
+
+    enum MailHandler {
+        GENERAL_DELIVERY, MACHINE_SCAN, VISUAL_INSPECTION, RETURN_TO_SENDER
     }
 
     static void handle(MailTask9 m) {
-        for (MailHandler handler : MailHandler.values())
-            if (handler.handle(m))
+        for (Map.Entry<MailHandler, Command> entry : enumMap.entrySet()) {
+            if (entry.getValue().handle(m)) {
                 return;
+            }
+        }
         System.out.println(m + " is dead letter");
     }
 
