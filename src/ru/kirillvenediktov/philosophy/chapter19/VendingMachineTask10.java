@@ -1,7 +1,6 @@
 package ru.kirillvenediktov.philosophy.chapter19;
 
 import ru.kirillvenediktov.philosophy.util.Generator;
-import ru.kirillvenediktov.philosophy.util.TextFile;
 
 import java.util.EnumMap;
 
