@@ -42,7 +42,7 @@ public class SimplePrioritiesTask9 implements Runnable {
 
 class UserThreadFactory implements ThreadFactory {
 
-    private boolean isHighPriority;
+    private final boolean isHighPriority;
 
     public UserThreadFactory(boolean isHighPriority) {
         this.isHighPriority = isHighPriority;
@@ -50,7 +50,7 @@ class UserThreadFactory implements ThreadFactory {
 
     @Override
     public Thread newThread(Runnable r) {
-        Thread thread = newThread(r);
+        Thread thread = new Thread(r);
         if (isHighPriority) {
             thread.setPriority(Thread.MAX_PRIORITY);
         } else {

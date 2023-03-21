@@ -3,54 +3,56 @@ package ru.kirillvenediktov.philosophy.chapter21;
 import ru.kirillvenediktov.philosophy.chapter15.Fibonacci;
 
 import java.util.Random;
-import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
-public class Task5 implements Callable<Integer> {
+public class Task10 {
 
     private static int taskCount = 0;
 
     private final int id = taskCount++;
 
-    private final int iterationsCount;
-
     private final Fibonacci gen = new Fibonacci();
 
-    public Task5(int iterationsCount) {
-        this.iterationsCount = iterationsCount;
-    }
+    private final ExecutorService exec = Executors.newCachedThreadPool();
 
     @Override
     public String toString() {
         return "#" + id;
     }
 
-    @Override
-    public Integer call() {
-        int sum = 0;
-        for (int i = 0; i < iterationsCount; i++) {
-            sum += gen.next();
-        }
-        return sum;
+    public ExecutorService getExec() {
+        return exec;
+    }
+
+    public Future<Integer> runTask(int iterationsCount) {
+        return exec.submit(() -> {
+            int sum = 0;
+            for (int i = 0; i < iterationsCount; i++) {
+                sum += gen.next();
+            }
+            return sum;
+        });
     }
 
     public static void main(String[] args) {
         Random random = new Random();
-        ExecutorService exec = Executors.newCachedThreadPool();
+        Task10 task10 = new Task10();
         for (int i = 0; i < 5; i++) {
             int sum = 0;
             try {
-                sum += exec.submit(new Task5(random.nextInt(7))).get();
+                sum += task10.runTask(random.nextInt(7)).get();
             } catch (InterruptedException e) {
                 e.printStackTrace();
             } catch (ExecutionException e) {
                 e.printStackTrace();
+            } finally {
+
             }
             System.out.println(sum);
         }
-        exec.shutdown();
     }
 
 }
